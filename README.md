@@ -27,10 +27,8 @@ To compile from source yourself, you need to work on a GNU/Linux system and inst
 
 First, build the [gcc-musl](https://github.com/richfelker/musl-cross-make) toolchain
 
-    ./scripts/gcc-musl.sh -arch=[amd64,armv7,aarch64,mips]
-    
-Then you can build aMule via
+    ./scripts/gcc-musl.sh -arch=<architecture>
+
+where the value of `<architecture>` can be `amd64`, `armv7`, `aarch64` or `mips`. Then you can build aMule via
 
     ./scripts/build.sh <architecture>
-    
-where the value of `<architecture>` can be `amd64`, `armv7`, `aarch64` and `mips`.
