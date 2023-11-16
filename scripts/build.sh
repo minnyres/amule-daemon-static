@@ -79,7 +79,7 @@ mkdir -p ${SRCDIR}
 mkdir -p ${BUILDDIR}
 
 # ----- Log File ---- #
-export LOG="$CURDIR/log.txt"
+export LOG="$CURDIR/log-$ARCH.txt"
 
 # ----- dpackage(): Download Function ----- #
 dpackage() {

@@ -5,10 +5,7 @@ set -e
 cd $SRCDIR/cryptopp${cryptopp_ver}
 
 sed -i 's/TestVectors\/ocb.txt//g' Makefile.am
-
-autoupdate >> $LOG 2>&1
-libtoolize --force --install >> $LOG 2>&1
-autoreconf --force --install >> $LOG 2>&1
+./bootstrap.sh >> $LOG 2>&1
 
 CPPFLAGS="-DNDEBUG" CXXFLAGS="-g0 -O3" LDFLAGS="-s" ./configure --prefix=$BUILDDIR/cryptopp --host=$TARGET --enable-shared=no --enable-static >> $LOG 2>&1
 mkdir -p $BUILDDIR/cryptopp/lib

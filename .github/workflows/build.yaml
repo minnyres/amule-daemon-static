@@ -17,22 +17,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Install tools
-        run: |
-          sudo apt update
-          sudo apt install \
-            g++ autoconf automake make patch bison flex libtool git wget gettext texinfo p7zip-full pkg-config autopoint
-          wget https://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz
-          tar xf autoconf-2.69.tar.xz
-          cd autoconf-2.69
-          ./configure --prefix=/usr/local/autoconf
-          make && sudo make install
-
-      - name: Build musl GCC
-        run: ./scripts/gcc-musl.sh -arch=${{ matrix.cpu_arch }}
           
       - name: Build aMule
         run: |
-          export PATH=/usr/local/autoconf/bin:$PATH
-          ./scripts/build.sh ${{ matrix.cpu_arch }}
+          docker build -f Dockerfile -t builder .
+          docker run --rm -t -v $PWD:/build builder sh -c "cd /build && ./scripts/gcc-musl.sh -arch=${{ matrix.cpu_arch }} && ./scripts/build.sh ${{ matrix.cpu_arch }}"
+
+      - name: Upload build artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-log
+          path: log-${{ matrix.cpu_arch }}.txt
