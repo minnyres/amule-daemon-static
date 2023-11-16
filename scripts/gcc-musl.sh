@@ -2,7 +2,7 @@
 
 set -e
 
-help_msg="Usage: ./scripts/gcc-musl.sh -arch=[amd64,armv7,aarch64,mips]"
+help_msg="Usage: ./scripts/gcc-musl.sh -arch=[amd64|armv7|aarch64|mips]"
 
 workdir=$PWD/toolchain
 
@@ -43,7 +43,8 @@ echo "TARGET = $TARGET" >> config.mak
 echo "GCC_VER = $GCC_VER" >> config.mak
 echo "BINUTILS_VER = $BINUTILS_VER" >> config.mak
 echo "MUSL_VER = $MUSL_VER" >> config.mak
-echo "COMMON_CONFIG += CFLAGS=\"-g0 -Os\" CXXFLAGS=\"-g0 -Os\" LDFLAGS=\"-s\"" >> config.mak 
+echo "COMMON_CONFIG += CFLAGS=\"-g0 -O2\" CXXFLAGS=\"-g0 -O2\" LDFLAGS=\"-s\"" >> config.mak 
+# echo "GCC_CONFIG += --enable-default-pie" >> config.mak 
 
 make
 make install

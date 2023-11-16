@@ -34,15 +34,16 @@ export address
 export PATH=$PWD/toolchain/gcc-$TARGET/bin:$PATH
 
 # ----- Package Versions ----- #
-export zlib_ver=1.2.13
-export wxwidgets_ver=3.0.5
-export pupnp_ver=1.14.13
-export cryptopp_ver=860
-export cryptopp_autotools_ver=8_6_0
-export boost_ver=1.80.0
-export boost_ver2=1_80_0
+export zlib_ver=1.3
+export wxwidgets_ver=3.2.3
+export pupnp_ver=1.14.18
+export cryptopp_ver=880
+export cryptopp_autotools_ver=8_8_0
+export boost_ver=1.83.0
+export boost_ver2=1_83_0
 export amule_ver=2.3.3
-export libpng_ver=1.6.37
+export libpng_ver=1.6.40
+export amule_build=2.3.3.2
 
 # ----- Package URLs ----- #
 zlib_url=http://zlib.net/zlib-${zlib_ver}.tar.gz
@@ -57,15 +58,15 @@ amuledlp_url=https://github.com/persmule/amule-dlp/archive/refs/heads/master.zip
 libantileech_url=https://github.com/persmule/amule-dlp.antiLeech/archive/refs/heads/master.zip
 
 # ----- Package Checksums (sha512sum) ----- #
-zlib_sum=99f0e843f52290e6950cc328820c0f322a4d934a504f66c7caa76bd0cc17ece4bf0546424fc95135de85a2656fed5115abb835fd8d8a390d60ffaf946c8887ad
-wxwidgets_sum=ea614d56571ab036983c5d988240d65ae5a94c5c37ee68aa59a904440acc54173cca5def73b5f7b130a40ddc85b5cccc4d8b3d5a36e69c500bbdcfc8b62958cb
-pupnp_sum=7d84ad6a05189bb649575567575fd898e69268b22d3c5819a2928f30c1f616b926545467aa9803bec4b532829fdc2db8963dbbe74350938c8e32ff883e983e93
-cryptopp_sum=e7773f5e4a7dc7e8e735b1702524bee56ba38e5211544c9c9778bc51ed8dc7b376c17f2e406410043b636312336f26f76dc963f298872f8c13933e88c232fc03
-cryptopp_autotools_sum=8e7426b5168c8542d818ac84f3def77fde1997358db566e7a9649b0f8c9dcf14940655ed16945fa70a11d90331e163f8d7cf4a0810575319563cc8da7ff54eb6
-boost_sum=829a95b463473d69ff79ea41799c68429bb79d3b2321fbdb71df079af237ab01de9ad7e9612d8783d925730acada010068d2d1aa856c34244ee5c0ece16f208f
-libpng_sum=59e8c1059013497ae616a14c3abbe239322d3873c6ded0912403fc62fb260561768230b6ab997e2cccc3b868c09f539fd13635616b9fa0dd6279a3f63ec7e074
+zlib_sum=185795044461cd78a5545250e06f6efdb0556e8d1bfe44e657b509dd6f00ba8892c8eb3febe65f79ee0b192d6af857f0e0055326d33a881449f3833f92e5f8fb
+wxwidgets_sum=72e00cea25ab82d5134592f85bedeecb7b9512c00be32f37f6879ca5c437569b3b2b77de61a38e980e5c96baad9b1b0c8ad70773d610afbe9421fa4941d31f99
+pupnp_sum=1cbff151e12c8cdfc369d63282afa8cedc3c9498676213e56371bf6dc3d40c5313149da895ba0177541cdb45d928de26248579cbf8d0006adfdcd445a65ef4bb
+cryptopp_sum=3fb1c591735f28dbd1329a6de6de9c495388c88bd5c4f077894c41668398ed313f14121a4553e0d4aa71e552ee8c3b744b770711748528ade71043ecc6159c80
+cryptopp_autotools_sum=a86b703b596644fe7793b6c65c284847bbcf25d0e3d7198ceaff4ba3ba93ab1ed81acba75c4ae5aa25d1bca6d6e92dbf775bfb1f15130a2892ffb6a693913dc0
+boost_sum=d133b521bd754dc35a9bd30d8032bd2fd866026d90af2179e43bfd7bd816841f7f3b84303f52c0e54aebc373f4e4edd601a8f5a5e0c47500e0e852e04198a711
+libpng_sum=a2ec37c529bf80f3fee3798191d080d06e14d6a1ffecd3c1a02845cb9693b5e308a1d82598a376101f9312d989d19f1fb6735b225d4b0b9f1b73f9f8a3edb17f
 amule_sum=a5a80c5ddd1e107d92070c1d8e232c2762c4c54791abc067c739eef7c690062ed164dd7733808f80c762719261162aeb3d602308964dda2670a0bb059d87b74e
-amuledlp_sum=8bb0f1ab99edf9ef99b0d8d3038e2bf795922bbda9508b1d44c1d4a8f4deae760ef002efc39342718c4374d2d6221420c56b7cd5a4fd3fc3c99c4965f5037bce
+amuledlp_sum=a01401cf73be69c2af59785bbef343bcfd189dd1fa3ce880b63e1c59d80b5cd1475a375a0cf621e5eb9898aa7dd3d41e7835fa484fd23a6070e191c1c5577cfa
 libantileech_sum=75d0746d24aae1bc11dbbd16979bc63b5707932b9e461dcb65a4eff16640bbfbf72a2c7960bc8b08f07f8fe79dede318d512a00469244760e5deff2e06f86772
 
 # ----- Development Directories ----- #
@@ -150,10 +151,18 @@ printf -- "${BLUEC}..${NORMALC} Building libpng...\n"
 ./scripts/libpng.sh
 printf -- "${BLUEC}..${NORMALC} Building amule...\n"
 ./scripts/amule.sh
+# printf -- "${BLUEC}..${NORMALC} Building amule-dlp...\n"
+# ./scripts/amule-dlp.sh
 
 # ----- Publish ----- #
 printf -- "${BLUEC}..${NORMALC} Packaging amule...\n"
 cd $BUILDDIR
-filename=amule-${amule_ver}-linux-${ARCH}.tar.xz
+filename=amule-${amule_build}-linux-${ARCH}.tar.xz
 XZ_OPT=-9 tar -cJf $filename amule
 mv $filename ${CURDIR}
+
+# printf -- "${BLUEC}..${NORMALC} Packaging amule-dlp...\n"
+# cd $BUILDDIR
+# filename=amule-dlp-$(printf '%(%Y-%m-%d)T\n' -1)-linux-${ARCH}.tar.xz
+# XZ_OPT=-9 tar -cJf $filename amule-dlp
+# mv $filename ${CURDIR}
