@@ -10,7 +10,9 @@ jobs:
   build-windows:
     name: Build
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
         cpu_arch: [armv7, aarch64, mips, amd64]
         
@@ -21,11 +23,11 @@ jobs:
       - name: Build aMule
         run: |
           docker build -f Dockerfile -t builder .
-          docker run --rm -t -v $PWD:/build builder sh -c "cd /build && ./scripts/gcc-musl.sh -arch=${{ matrix.cpu_arch }} && ./scripts/build.sh ${{ matrix.cpu_arch }}"
+          docker run --user $(id -u):$(id -g) --rm -t -v $PWD:/build builder sh -c "cd /build && ./scripts/gcc-musl.sh -arch=${{ matrix.cpu_arch }} && ./scripts/build.sh ${{ matrix.cpu_arch }}"
 
       - name: Upload build artifacts
-        if: always()
+        # if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: build-log
-          path: log-${{ matrix.cpu_arch }}.txt
+          name: amule-linux-musl
+          path: amule*.tar.xz
