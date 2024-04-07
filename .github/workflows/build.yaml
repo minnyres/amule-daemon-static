@@ -1,10 +1,7 @@
 name: Build
 
 on:
-  workflow_dispatch:
   push:
-    tags:
-    - '*'
 
 jobs:
   build-windows:
@@ -19,11 +16,23 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Docker Environment
+        run: docker build -f Dockerfile -t builder .
           
+      - name: Cache Musl GCC
+        id: cache-musl-gcc
+        uses: actions/cache@v3
+        with:
+          path: toolchain
+          key: ${{ runner.os }}-musl-gcc-${{ matrix.cpu_arch }}
+
+      - name: Build Musl GCC
+        if: steps.cache-musl-gcc.outputs.cache-hit != 'true'
+        run: docker run --user $(id -u):$(id -g) --rm -t -v $PWD:/build builder sh -c "cd /build && ./scripts/gcc-musl.sh -arch=${{ matrix.cpu_arch }} && rm -rf toolchain/musl-cross-make"
+
       - name: Build aMule
-        run: |
-          docker build -f Dockerfile -t builder .
-          docker run --user $(id -u):$(id -g) --rm -t -v $PWD:/build builder sh -c "cd /build && ./scripts/gcc-musl.sh -arch=${{ matrix.cpu_arch }} && ./scripts/build.sh ${{ matrix.cpu_arch }}"
+        run: docker run --user $(id -u):$(id -g) --rm -t -v $PWD:/build builder sh -c "cd /build && ./scripts/build.sh ${{ matrix.cpu_arch }}"
 
       - name: Upload build artifacts
         # if: always()
