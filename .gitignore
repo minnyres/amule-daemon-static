@@ -1,5 +1,6 @@
 /toolchain/
 /build-*/
-/log.txt
+/log*.txt
 /amule-*.tar.xz
 /sources/
+/amule*/
