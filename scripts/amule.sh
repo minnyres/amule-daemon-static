@@ -9,8 +9,8 @@ patch -p0 < $PCHDIR/amule-fix-exception.patch
 patch -p1 < $PCHDIR/amule-fix-unzip.patch
 
 ./autogen.sh  >> $LOG 2>&1
-./configure CPPFLAGS="-I$BUILDDIR/zlib/include -I$BUILDDIR/libpng/include" \
-    LDFLAGS="-L$BUILDDIR/zlib/lib -L$BUILDDIR/libpng/lib" \
+./configure CPPFLAGS="-I$BUILDDIR/zlib/include -I$BUILDDIR/libpng/include -I$BUILDDIR/readline/include -I$BUILDDIR/ncurses/include" \
+    LDFLAGS="-L$BUILDDIR/zlib/lib -L$BUILDDIR/libpng/lib -L$BUILDDIR/readline/lib -L$BUILDDIR/ncurses/lib" \
     --prefix=$BUILDDIR/amule --host=$TARGET \
     --disable-monolithic \
     --enable-amule-daemon --enable-webserver --enable-amulecmd --disable-amule-gui \

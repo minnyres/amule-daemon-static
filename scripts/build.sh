@@ -49,6 +49,7 @@ export boost_ver2=1_84_0
 export amule_ver=2.3.3
 export libpng_ver=1.6.43
 export readline_ver=8.2
+export ncurses_ver=6.4
 export amule_build=2.3.3-2
 
 # ----- Package URLs ----- #
@@ -118,6 +119,7 @@ dpackage ${readline_url} ${readline_sum}
 [ -d amule-dlp ] || git clone --depth 1 https://github.com/persmule/amule-dlp.git
 [ -d amule-dlp.antiLeech ] || git clone --depth 1 https://github.com/persmule/amule-dlp.antiLeech.git
 [ -d cryptopp-cmake ] || git clone --depth 1 --branch CRYPTOPP_$cryptopp_ver https://github.com/abdes/cryptopp-cmake.git
+[ -d ncurses ] || git clone --depth 1 --branch v$ncurses_ver https://github.com/mirror/ncurses.git
 
 printf -- "${BLUEC}..${NORMALC} Extracting sources...\n"
 tar -xf "$(basename ${zlib_url})"
@@ -130,6 +132,8 @@ tar -xf "$(basename ${readline_url})"
 
 # ----- Build 3rd-party libraries and aMule ----- #
 cd ${CURDIR}
+printf -- "${BLUEC}..${NORMALC} Building ncurses...\n"
+./scripts/ncurses.sh
 printf -- "${BLUEC}..${NORMALC} Building readline...\n"
 ./scripts/readline.sh
 printf -- "${BLUEC}..${NORMALC} Building zlib...\n"
