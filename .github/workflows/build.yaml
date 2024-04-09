@@ -39,4 +39,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: amule-linux-musl
-          path: amule*.tar.xz
+          path: | 
+            amule*.tar.xz
+            log*.txt
