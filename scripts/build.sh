@@ -48,6 +48,7 @@ export boost_ver=1.84.0
 export boost_ver2=1_84_0
 export amule_ver=2.3.3
 export libpng_ver=1.6.43
+export readline_ver=8.2
 export amule_build=2.3.3-2
 
 # ----- Package URLs ----- #
@@ -57,6 +58,7 @@ pupnp_url=https://github.com/pupnp/pupnp/releases/download/release-${pupnp_ver}/
 boost_url=https://boostorg.jfrog.io/artifactory/main/release/${boost_ver}/source/boost_${boost_ver2}.tar.bz2
 libpng_url=https://download.sourceforge.net/libpng/libpng-${libpng_ver}.tar.xz
 amule_url=http://prdownloads.sourceforge.net/amule/aMule-${amule_ver}.tar.xz
+readline_url=https://ftp.gnu.org/gnu/readline/readline-${readline_ver}.tar.gz
 
 # ----- Package Checksums (sha512sum) ----- #
 zlib_sum=580677aad97093829090d4b605ac81c50327e74a6c2de0b85dd2e8525553f3ddde17556ea46f8f007f89e435493c9a20bc997d1ef1c1c2c23274528e3c46b94f
@@ -65,6 +67,7 @@ pupnp_sum=1cbff151e12c8cdfc369d63282afa8cedc3c9498676213e56371bf6dc3d40c5313149d
 boost_sum=5dfeb35198bb096e46cf9e131ef0334cb95bc0bf09f343f291b860b112598b3c36111bd8c232439c401a2b2fb832fa0c399a8d5b96afc60bd359dff070154497
 libpng_sum=c95d661fed548708ce7de5d80621a432272bdfe991f0d4db3695036e5fafb8a717b4e4314991bdd3227d7aa07f8c6afb6037c57fa0fe3349334a0b6c58268487
 amule_sum=a5a80c5ddd1e107d92070c1d8e232c2762c4c54791abc067c739eef7c690062ed164dd7733808f80c762719261162aeb3d602308964dda2670a0bb059d87b74e
+readline_sum=0a451d459146bfdeecc9cdd94bda6a6416d3e93abd80885a40b334312f16eb890f8618a27ca26868cebbddf1224983e631b1cbc002c1a4d1cd0d65fba9fea49a
 
 # ----- Development Directories ----- #
 export CURDIR="$PWD"
@@ -111,6 +114,7 @@ dpackage ${pupnp_url} ${pupnp_sum}
 dpackage ${boost_url} ${boost_sum}
 dpackage ${libpng_url} ${libpng_sum}
 dpackage ${amule_url} ${amule_sum}
+dpackage ${readline_url} ${readline_sum}
 [ -d amule-dlp ] || git clone --depth 1 https://github.com/persmule/amule-dlp.git
 [ -d amule-dlp.antiLeech ] || git clone --depth 1 https://github.com/persmule/amule-dlp.antiLeech.git
 [ -d cryptopp-cmake ] || git clone --depth 1 --branch CRYPTOPP_$cryptopp_ver https://github.com/abdes/cryptopp-cmake.git
@@ -122,9 +126,12 @@ tar -xf "$(basename ${pupnp_url})"
 tar -xf "$(basename ${boost_url})"
 tar -xf "$(basename ${amule_url})"
 tar -xf "$(basename ${libpng_url})"
+tar -xf "$(basename ${readline_url})"
 
 # ----- Build 3rd-party libraries and aMule ----- #
 cd ${CURDIR}
+printf -- "${BLUEC}..${NORMALC} Building readline...\n"
+./scripts/readline.sh
 printf -- "${BLUEC}..${NORMALC} Building zlib...\n"
 ./scripts/zlib.sh
 printf -- "${BLUEC}..${NORMALC} Building libupnp...\n"
