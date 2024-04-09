@@ -10,6 +10,6 @@ cd build-$TARGET
     --disable-shared --disable-gui --enable-monolithic --disable-debug_flag --enable-optimise --enable-unicode >> $LOG 2>&1
 mkdir -p $BUILDDIR/wxwidgets/lib
 ln -snf lib $BUILDDIR/wxwidgets/lib64
-make >> $LOG 2>&1
+make -j$(nproc) >> $LOG 2>&1
 make install >> $LOG 2>&1
 make clean >> $LOG 2>&1

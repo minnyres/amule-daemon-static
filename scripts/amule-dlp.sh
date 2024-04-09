@@ -23,7 +23,7 @@ patch -p1 < $PCHDIR/amule-fix-unzip.patch
     --enable-static-boost --with-boost=$BUILDDIR/boost \
     --with-libupnp-prefix=$BUILDDIR/libupnp --with-denoise-level=0 --enable-ccache  >> $LOG 2>&1
 
-make >> $LOG 2>&1
+make -j$(nproc) >> $LOG 2>&1
 make install >> $LOG 2>&1
 make clean >> $LOG 2>&1
 
