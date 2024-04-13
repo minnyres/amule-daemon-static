@@ -2,7 +2,7 @@
 
 set -e
 
-ssl_option="--with-mbedtls=$BUILDDIR/mbedtls --with-ca-bundle=./curl-ca-bundle.crt"
+ssl_option="--with-openssl=$BUILDDIR/openssl --with-ca-bundle=../share/amule/curl-ca-bundle.crt"
 
 cd $SRCDIR/curl
 autoreconf -fi >> $LOG 2>&1

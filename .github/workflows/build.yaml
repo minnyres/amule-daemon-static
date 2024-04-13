@@ -35,7 +35,7 @@ jobs:
         run: docker run --user $(id -u):$(id -g) --rm -t -v $PWD:/build builder sh -c "cd /build && ./scripts/build.sh ${{ matrix.cpu_arch }}"
 
       - name: Upload build artifacts
-        # if: always()
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: amule-linux-musl

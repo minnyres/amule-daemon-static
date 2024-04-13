@@ -52,6 +52,7 @@ export readline_ver=8.2
 export ncurses_ver=6.4
 export curl_ver=8_7_1
 export mbedtls_ver=3.6.0
+export openssl_ver=3.3.0
 export amule_build=2.3.3-2
 
 # ----- Package URLs ----- #
@@ -123,7 +124,8 @@ dpackage ${readline_url} ${readline_sum}
 [ -d cryptopp-cmake ] || git clone --depth 1 --branch CRYPTOPP_$cryptopp_ver https://github.com/abdes/cryptopp-cmake.git
 [ -d ncurses ] || git clone --depth 1 --branch v$ncurses_ver https://github.com/mirror/ncurses.git
 [ -d curl ] || git clone --branch curl-$curl_ver --depth 1 https://github.com/curl/curl.git
-[ -d mbedtls ] || git clone --branch v$mbedtls_ver --depth 1 --recurse-submodule https://github.com/Mbed-TLS/mbedtls.git
+[ -d openssl ] || git clone --branch openssl-$openssl_ver --depth 1 https://github.com/openssl/openssl.git
+wget https://curl.se/ca/cacert.pem -O curl-ca-bundle.crt
 
 printf -- "${BLUEC}..${NORMALC} Extracting sources...\n"
 tar -xf "$(basename ${zlib_url})"
@@ -142,8 +144,8 @@ printf -- "${BLUEC}..${NORMALC} Building readline...\n"
 ./scripts/readline.sh
 printf -- "${BLUEC}..${NORMALC} Building zlib...\n"
 ./scripts/zlib.sh
-printf -- "${BLUEC}..${NORMALC} Building mbedtls...\n"
-./scripts/mbedtls.sh
+printf -- "${BLUEC}..${NORMALC} Building openssl...\n"
+./scripts/openssl.sh
 printf -- "${BLUEC}..${NORMALC} Building curl...\n"
 ./scripts/curl.sh
 printf -- "${BLUEC}..${NORMALC} Building libupnp...\n"
