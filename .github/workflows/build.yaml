@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  build-windows:
+  build:
     name: Build
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -42,3 +42,23 @@ jobs:
           path: | 
             amule*.tar.xz
             log*.txt
+
+  release:
+    name: Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+    - name: Download temp artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: amule-linux-musl
+
+    - name: Calculate hashes
+      run: |
+        sha256sum amule*.tar.xz
+
+    - name: Batch release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: amule*.tar.xz
