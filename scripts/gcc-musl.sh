@@ -37,14 +37,14 @@ cp config.mak.dist config.mak
 
 GCC_VER=11.2.0
 BINUTILS_VER=2.33.1
-MUSL_VER=1.2.3
+MUSL_VER=1.2.5
 
 echo "TARGET = $TARGET" >> config.mak
 echo "GCC_VER = $GCC_VER" >> config.mak
 echo "BINUTILS_VER = $BINUTILS_VER" >> config.mak
 echo "MUSL_VER = $MUSL_VER" >> config.mak
 echo "COMMON_CONFIG += CFLAGS=\"-g0 -O2\" CXXFLAGS=\"-g0 -O2\" LDFLAGS=\"-s\"" >> config.mak 
-# echo "GCC_CONFIG += --enable-default-pie" >> config.mak 
+echo "GCC_CONFIG += --enable-default-pie" >> config.mak 
 
 make
 make install
