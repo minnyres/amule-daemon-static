@@ -16,6 +16,7 @@ patch -p1 < $PCHDIR/amule-fix-unzip.patch
 ./configure CPPFLAGS="-I$BUILDDIR/zlib/include -I$BUILDDIR/libpng/include -I$BUILDDIR/readline/include -I$BUILDDIR/ncurses/include -DHAVE_LIBCURL" \
     LDFLAGS="-L$BUILDDIR/zlib/lib -L$BUILDDIR/libpng/lib -L$BUILDDIR/readline/lib -L$BUILDDIR/ncurses/lib" \
     CXXFLAGS="-DCURL_STATICLIB" CFLAGS="-DCURL_STATICLIB" \
+    PKG_CONFIG_PATH="$BUILDDIR/libgd/lib/pkgconfig" \
     --prefix=$BUILDDIR/amule --host=$TARGET \
     --disable-monolithic \
     --enable-amule-daemon --enable-webserver --enable-amulecmd --disable-amule-gui \
@@ -28,7 +29,7 @@ patch -p1 < $PCHDIR/amule-fix-unzip.patch
     --enable-static-boost --with-boost=$BUILDDIR/boost \
     --with-libupnp-prefix=$BUILDDIR/libupnp --with-denoise-level=0 --enable-ccache  >> $LOG 2>&1
 
-make -j$(nproc) >> $LOG 2>&1
+make GDLIB_LIBS="-lgd -lpng16 -lz" -j$(nproc) >> $LOG 2>&1
 make install >> $LOG 2>&1
 make clean >> $LOG 2>&1
 

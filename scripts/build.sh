@@ -53,6 +53,7 @@ export ncurses_ver=6.4
 export curl_ver=8_7_1
 export mbedtls_ver=3.6.0
 export openssl_ver=3.3.0
+export libgd_ver=2.3.3
 export amule_build=2.3.3-2
 
 # ----- Package URLs ----- #
@@ -125,6 +126,7 @@ dpackage ${readline_url} ${readline_sum}
 [ -d ncurses ] || git clone --depth 1 --branch v$ncurses_ver https://github.com/mirror/ncurses.git
 [ -d curl ] || git clone --branch curl-$curl_ver --depth 1 https://github.com/curl/curl.git
 [ -d openssl ] || git clone --branch openssl-$openssl_ver --depth 1 https://github.com/openssl/openssl.git
+[ -d libgd ] || git clone --branch gd-$libgd_ver --depth 1 https://github.com/libgd/libgd.git
 wget https://curl.se/ca/cacert.pem -O curl-ca-bundle.crt
 
 printf -- "${BLUEC}..${NORMALC} Extracting sources...\n"
@@ -158,6 +160,8 @@ printf -- "${BLUEC}..${NORMALC} Building boost...\n"
 ./scripts/boost.sh
 printf -- "${BLUEC}..${NORMALC} Building libpng...\n"
 ./scripts/libpng.sh
+printf -- "${BLUEC}..${NORMALC} Building libgd...\n"
+./scripts/libgd.sh
 printf -- "${BLUEC}..${NORMALC} Building amule...\n"
 ./scripts/amule.sh
 # printf -- "${BLUEC}..${NORMALC} Building amule-dlp...\n"
